@@ -10,13 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from pathlib import Path
-
 import os
 from pathlib import Path
-
 import environ
-from datetime import timedelta
 
 import pymysql
 pymysql.install_as_MySQLdb()
@@ -24,33 +20,22 @@ pymysql.install_as_MySQLdb()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # django-environ
 env = environ.Env(DEBUG=(bool, True))
 environ.Env.read_env(
     env_file=os.path.join(BASE_DIR, '.env')
 )
 
-# DATABASES = my_settings.DATABASES	# DATABASES를 my_settings에 있는 mysql로 바꿔준다.
-# SECRET_KEY = my_settings.SECRET['secret']	# 시크릿키를 my_settings에서 가져온다 because 시크릿키는 깃에 올라가면 안되기때문
-
+# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-# # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-v3(jac%17m$26kxq3o7^qc+@#%rh*1-6j62o5&5w(!f1q=likt'
-
-
-# # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
