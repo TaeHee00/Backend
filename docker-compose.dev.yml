@@ -36,8 +36,8 @@ services:
       - mysql:mysql
     networks:
       - gtd
-    depends_on:
-      - mysql
+    # depends_on:
+    #   - mysql
     expose:
       - 8000
 
