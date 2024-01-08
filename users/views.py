@@ -37,12 +37,12 @@ class RegisterAPIView(APIView):
 
             res = Response(
                 {
-                    "user": serializer.data,
+                    # "user": serializer.data,
                     "message": "register successs",
-                    "token": {
-                        "access": access_token,
-                        "refresh": refresh_token,
-                    },
+                    # "token": {
+                    #     "access": access_token,
+                    #     "refresh": refresh_token,
+                    # },
                 },
                 status=status.HTTP_200_OK,
             )
@@ -125,7 +125,7 @@ class AuthAPIView(APIView):
             res.set_cookie("refresh", refresh_token, httponly=True)
             return res
         else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'Invalid email or password.'}, status=status.HTTP_400_BAD_REQUEST)
 
     # 로그아웃
     def delete(self, request):
