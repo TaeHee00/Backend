@@ -35,7 +35,8 @@ jobs:
       run: |
         result=$(docker-compose -f docker-compose.dev.yml up -d --remove-orphans)  # 결과를 변수에 저장
         echo "$result"
-        if [[ "$result" != *"Recreating backend ... done"* ]]; then  # 출력 결과가 "Recreating backend ... done"을 포함하지 않으면
+        echo "$result" | grep -q "Recreating backend ... done"  # 출력 결과에서 "Recreating backend ... done"이 포함된 줄이 있는지 확인
+        if [ $? -ne 0 ]; then  # "Recreating backend ... done"이 포함된 줄이 없으면
           docker-compose -f docker-compose.dev.yml down  # Docker 컨테이너를 종료
           exit 1  # 실패 상태로 종료
         fi
