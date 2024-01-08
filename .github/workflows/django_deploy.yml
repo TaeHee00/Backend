@@ -21,10 +21,16 @@ jobs:
         touch .env
         echo "${{ secrets.ENV_VARS }}" >> .env
     
+    - name: Docker-Compose Down
+      run: |
+        if [ "$(docker ps -q -f name=container_name)" ]; then
+          docker-compose -f docker-compose.dev.yml down
+        fi
+    
     - name: Docker-Compose Build
       run: |
         docker-compose -f docker-compose.dev.yml build
     
     - name: Docker-Compose Up
       run: |
-        docker-compose -f docker-compose.dev.yml up
+        docker-compose -f docker-compose.dev.yml up -d
